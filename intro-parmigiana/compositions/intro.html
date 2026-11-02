@@ -1,0 +1,279 @@
+<template>
+  <style>
+    :root {
+      --ground: #0a0908;
+      --wine: #7f1d1d;
+      --gold: #d97706;
+      --gold-light: #fef3c7;
+      --cream: #fffbeb;
+      --it-green: #008c45;
+      --it-white: #f4f5f0;
+      --it-red: #cd212a;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 45%, #24140f 0%, #120907 55%, #050404 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Fondo cinematográfico con textura */
+    .bg-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .bg-image {
+      position: absolute;
+      inset: -50px;
+      background-image: url("assets/pasta-hero.webp");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      filter: blur(3px) saturate(1.2);
+    }
+    .bg-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 38%, rgba(5, 4, 4, 0.88) 85%, #050404 100%);
+    }
+    .bg-glow {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      width: 960px;
+      height: 560px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(217, 119, 6, 0.24) 0%, rgba(127, 29, 29, 0.14) 48%, transparent 75%);
+      pointer-events: none;
+      filter: blur(44px);
+    }
+
+    /* Escenario central */
+    .stage {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 1400px;
+    }
+
+    /* Cinta italiana */
+    .tricolor-ribbon {
+      display: flex;
+      width: 220px;
+      height: 5px;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 26px;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+    }
+    .ribbon-green { flex: 1; background: var(--it-green); }
+    .ribbon-white { flex: 1; background: var(--it-white); }
+    .ribbon-red { flex: 1; background: var(--it-red); }
+
+    /* Logo oficial */
+    .logo-container {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      padding: 10px;
+      border-radius: 16px;
+    }
+    .logo-img {
+      width: 480px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 45px rgba(217, 119, 6, 0.4));
+    }
+    .logo-shine {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 140px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: skewX(-25deg);
+      pointer-events: none;
+    }
+
+    /* Línea divisoria */
+    .divider-line {
+      width: 380px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+      margin: 14px 0 24px 0;
+      opacity: 0.9;
+    }
+
+    /* Tagline */
+    .tagline-container {
+      margin-bottom: 24px;
+    }
+    .tagline {
+      font-family: Georgia, "Playfair Display", serif;
+      font-size: 42px;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Insignia */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 32px;
+      border-radius: 9999px;
+      border: 1.5px solid rgba(217, 119, 6, 0.45);
+      background: rgba(18, 10, 8, 0.7);
+      backdrop-filter: blur(8px);
+    }
+    .badge-star {
+      color: var(--gold);
+      font-size: 20px;
+    }
+    .badge-text {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+  </style>
+
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div class="bg-layer">
+      <div id="bg-img" class="bg-image"></div>
+      <div class="bg-vignette"></div>
+      <div id="bg-glow" class="bg-glow"></div>
+    </div>
+
+    <div id="stage" class="stage">
+      <div id="ribbon" class="tricolor-ribbon">
+        <div class="ribbon-green"></div>
+        <div class="ribbon-white"></div>
+        <div class="ribbon-red"></div>
+      </div>
+
+      <div id="logo-box" class="logo-container">
+        <img class="logo-img" src="assets/logo.webp" alt="La Parmigiana" />
+        <div id="shine" class="logo-shine" data-layout-allow-overflow></div>
+      </div>
+
+      <div id="divider" class="divider-line"></div>
+
+      <div class="tagline-container">
+        <div id="tagline-text" class="tagline">El auténtico sabor de la tradición italiana</div>
+      </div>
+
+      <div id="badge" class="badge">
+        <span class="badge-star">✦</span>
+        <span class="badge-text">Pasión por la buena pasta · Panamá</span>
+        <span class="badge-star">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // Fondo ambiental
+    tl.fromTo(
+      "#bg-img",
+      { opacity: 0.12, scale: 1.0 },
+      { opacity: 0.18, scale: 1.08, duration: 4.3, ease: "none" },
+      0
+    );
+
+    tl.fromTo(
+      "#bg-glow",
+      { opacity: 0.4, scale: 0.8 },
+      { opacity: 1, scale: 1.1, duration: 2.2, ease: "power2.out" },
+      0
+    );
+
+    // Cinta tricolor inicia presente al 60% y florece
+    tl.fromTo(
+      "#ribbon",
+      { opacity: 0.6, scaleX: 0.7 },
+      { opacity: 1, scaleX: 1, duration: 0.8, ease: "power3.out" },
+      0
+    );
+
+    // Logo principal visible en frame 0 para miniatura perfecta y hace punch-in suave
+    tl.fromTo(
+      "#logo-box",
+      { opacity: 0.75, scale: 0.94, y: 8 },
+      { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: "power3.out" },
+      0
+    );
+
+    // Brillo sobre el logo
+    tl.fromTo(
+      "#shine",
+      { x: -180, opacity: 0 },
+      { x: 500, opacity: 0.8, duration: 1.1, ease: "power2.inOut" },
+      1.0
+    );
+
+    // Línea divisoria dorada
+    tl.fromTo(
+      "#divider",
+      { scaleX: 0.2, opacity: 0.4 },
+      { scaleX: 1, opacity: 0.9, duration: 0.9, ease: "power3.out" },
+      0.3
+    );
+
+    // Slogan de la marca
+    tl.fromTo(
+      "#tagline-text",
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" },
+      0.8
+    );
+
+    // Insignia inferior
+    tl.fromTo(
+      "#badge",
+      { opacity: 0, y: 16, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" },
+      1.4
+    );
+
+    // Suave salida final hacia negro al final de los 5s
+    tl.to(
+      "#stage",
+      { opacity: 0, scale: 0.97, y: -6, duration: 0.7, ease: "power2.in" },
+      4.3
+    );
+
+    tl.to(
+      "#bg-img",
+      { opacity: 0, duration: 0.7, ease: "power2.in" },
+      4.3
+    );
+
+    tl.to(
+      "#bg-glow",
+      { opacity: 0, duration: 0.7, ease: "power2.in" },
+      4.3
+    );
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["intro"] = tl;
+  </script>
+</template>
